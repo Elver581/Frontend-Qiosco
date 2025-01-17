@@ -18,7 +18,9 @@ export default function Productos() {
 
   const { data, error, isLoading } = useSWR(
     `/api/productos?page=${currentPage}`,
-    fetcher
+    fetcher,{
+      refreshInterval:1000
+    }
   );
 
   if (isLoading) return "Cargando...";

@@ -13,7 +13,7 @@ export default function RegisterProductos() {
   const imagenRef = createRef();
   const categoriaRef = createRef();
   
-  const [errores, setErrores] = useState([]);
+  const [errores, setErrores] = useState({});
   const [cargando, setCargando] = useState(false);
 
  
@@ -44,7 +44,7 @@ export default function RegisterProductos() {
           <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
             <form onSubmit={handleSubmit} noValidate>
               {/* Mostrar errores */}
-              {errores && errores.map((error, i) => <Alerta key={i}>{error}</Alerta>)}
+ 
 
               {/* Nombre del producto */}
               <div className="mb-4">
@@ -59,6 +59,7 @@ export default function RegisterProductos() {
                   placeholder="Nombre del producto"
                   className="mt-2 w-full p-3 bg-gray-50 rounded"
                 />
+                {errores.nombre && <small className="text-red-500">{errores.nombre}</small>}
               </div>
 
               {/* Precio del producto */}
@@ -74,6 +75,7 @@ export default function RegisterProductos() {
                   placeholder="Precio del producto"
                   className="mt-2 w-full p-3 bg-gray-50 rounded"
                 />
+                {errores.precio && <small className="text-red-500">{errores.precio}</small>}
               </div>
 
               {/* Imagen del producto */}
@@ -89,6 +91,7 @@ export default function RegisterProductos() {
                   accept="image/*"
                   className="mt-2 w-full p-3 bg-gray-50 rounded"
                 />
+                {errores.imagen && <small className="text-red-500">{errores.imagen}</small>}
               </div>
 
               {/* Selección de categoría */}

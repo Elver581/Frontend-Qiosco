@@ -5,7 +5,7 @@ import useQuiosco from "../hooks/useQuiosco"
  
 export default function Producto({ producto, botonAgregar= false, botonDisponible =false}) {
   console.log("Datos del producto:", producto);
-  const { nombre, imagen, precio } = producto
+  const { nombre, imagen, precio,disponible } = producto
   const { handleClicModal, handleSetProducto,handleClickProductoAgotado } = useQuiosco()
 
   return (
@@ -36,8 +36,7 @@ export default function Producto({ producto, botonAgregar= false, botonDisponibl
           }
           
         >
-          
-          Producto Agotado
+            {disponible ? 'Marcar como Agotado' : 'Habilitar Producto'}
         </button>
         )}
       

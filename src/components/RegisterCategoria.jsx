@@ -2,7 +2,7 @@ import clienteAxios  from "../config/axios.js";
 import { createRef, useState } from "react"
 import { useProduct } from "../hooks/useProduct"
 import Alerta from "./Alerta.jsx";
-import { toast } from "react-toastify";
+
 
 
 
@@ -32,8 +32,7 @@ export default function RegisterCategoria() {
     <div> 
         <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
       <form onSubmit={handleSubmit} noValidate >
-        {errores ? errores.map((error, i)=> <Alerta key={i}>{error}</Alerta>):null}
-        {/* Nombre del producto */}
+   
         <div className="mb-4">
           <label className="text-slate-800" htmlFor="nombre">
             Nombre de la Categoria:
@@ -47,6 +46,8 @@ export default function RegisterCategoria() {
             placeholder="Nombre de la categoria"
             className="mt-2 w-full p-3 bg-gray-50 rounded"
           />
+          {errores.nombre && <small className="block text-red-600">{errores.nombre}</small>}
+
         </div>
 
         {/* Precio del producto */}
@@ -66,6 +67,7 @@ export default function RegisterCategoria() {
           
             className="mt-2 w-full p-3 bg-gray-50 rounded"
           />
+          {errores.icono && <small className="block text-red-600">{errores.icono}</small>}
         </div>
 
     

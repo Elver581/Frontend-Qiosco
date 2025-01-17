@@ -4,13 +4,14 @@ import { toast } from "react-toastify"
 
 import clienteAxios from "../config/axios"
 import { Await } from "react-router-dom"
+import { set } from "react-hook-form"
 
 const QuioscoContext = createContext()
 
 const QuioscoProvider = ({ children }) => {
 
     const [categorias, setCategorias] = useState([])
-    const [categoriaActual, setCategoriaActual] = useState({})
+    const [categoriaActual, setCategoriaActual] = useState([])
     const [modal, setModal] = useState(false)
     const [producto, setProducto] = useState({})
     const [pedido, setPedido] = useState([])
@@ -150,13 +151,23 @@ const QuioscoProvider = ({ children }) => {
     const handleClickProductoAgotado = async id =>{
         const token = localStorage.getItem('AUTH_TOKEN')
         try {
-          await clienteAxios.put(`/api/productos/${id}`,null,{
+        const response =  await clienteAxios.put(`/api/productos/${id}`,null,{
               headers:{
                   Authorization: `Bearer ${token}`
               }
           })
+          console.log('Producto Agotado',response.data.producto)
+          const updatedProduct = response.data.producto
+          //Actualizar la lista de productos  en el estado
+          setProducto((prevProductos)=>{
+            if(!Array.isArray(prevProductos)){
+                console.log('No es un array',prevProductos)
+                return []
+            }
+            return prevProductos.map(producto=>producto.id === updatedProduct.id ? updatedProduct : producto)
+          })
         } catch (error) {
-          
+           console.log('Eroor al actualizar el producto:',error)
         }
       }
 
